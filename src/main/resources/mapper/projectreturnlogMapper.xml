@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.white.interfaceone.dao.ProjectreturnlogDao">
+	<resultMap id="BaseResultMap" type="com.white.interfaceone.entity.Projectreturnlog">
+	
+		<result column="serialNumber" property="serialNumber" jdbcType="VARCHAR" />
+		<result column="transactionTime" property="transactionTime" jdbcType="VARCHAR" />
+		<result column="bankCardNumber" property="bankCardNumber" jdbcType="VARCHAR" />
+		<result column="amountOfTheTransaction" property="amountOfTheTransaction" jdbcType="VARCHAR" />
+		<result column="orderNumber" property="orderNumber" jdbcType="VARCHAR" />
+		<result column="tradingStatus" property="tradingStatus" jdbcType="INTEGER" />
+	</resultMap>
+
+	<!-- 查询订单信息 -->
+	<select id="selectAll" resultMap="BaseResultMap"
+		parameterType="com.white.interfaceone.entity.Projectreturnlog">
+		select * from projectreturnlog
+		where serialNumber = #{serialNumber}
+	</select>
+	
+	
+	<!-- 新增订单号 -->
+	<insert id="insertAll" parameterType="com.white.interfaceone.entity.Projectreturnlog">
+		insert into projectreturnlog
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="serialNumber != null">
+				serialNumber,
+			</if>
+			<if test="transactionTime != null">
+				transactionTime,
+			</if>
+			<if test="bankCardNumber != null">
+				bankCardNumber,
+			</if>
+			<if test="amountOfTheTransaction != null">
+				amountOfTheTransaction,
+			</if>
+			<if test="orderNumber != null">
+				orderNumber,
+			</if>
+			<if test="tradingStatus != null">
+				tradingStatus
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="serialNumber != null">
+				#{serialNumber},
+			</if>
+			<if test="transactionTime != null">
+				#{transactionTime},
+			</if>
+			<if test="bankCardNumber != null">
+				#{bankCardNumber},
+			</if>
+			<if test="amountOfTheTransaction != null">
+				#{amountOfTheTransaction},
+			</if>
+			<if test="orderNumber != null">
+				#{orderNumber},
+			</if>
+			<if test="tradingStatus != null">
+				#{tradingStatus}
+			</if>
+		</trim>
+	</insert>
+</mapper>

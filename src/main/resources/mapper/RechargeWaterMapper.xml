@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.white.interfaceone.dao.RechargeWaterDao">
+	<resultMap id="BaseResultMap" type="com.white.interfaceone.entity.BankCardRecharge">
+	
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="serialNumber" property="serialNumber" jdbcType="VARCHAR" />
+		<result column="transactionTime" property="transactionTime" jdbcType="VARCHAR" />
+		<result column="amountOfTheTransaction" property="amountOfTheTransaction" jdbcType="VARCHAR" />
+		<result column="tradingStatus" property="tradingStatus" jdbcType="INTEGER" />
+	</resultMap>
+
+	<!-- 查询订单信息 -->
+	<select id="selectSerial" resultMap="BaseResultMap"
+		parameterType="com.white.interfaceone.entity.BankCardRecharge">
+		select * from rechargewater
+		where serialNumber = #{serialNumber}
+	</select>
+	
+	
+	<!-- 查询订单信息 -->
+	<select id="selectPhone" resultMap="BaseResultMap"
+		parameterType="com.white.interfaceone.entity.BankCardRecharge">
+		select * from rechargewater
+		where phone = #{phone}
+	</select>
+	
+	
+	<!-- 新增订单号 -->
+	<insert id="insertAll" parameterType="com.white.interfaceone.entity.BankCardRecharge">
+		insert into rechargewater
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="phone != null">
+				phone,
+			</if>
+			<if test="serialNumber != null">
+				serialNumber,
+			</if>
+			<if test="transactionTime != null">
+				transactionTime,
+			</if>
+			<if test="amountOfTheTransaction != null">
+				amountOfTheTransaction,
+			</if>
+			<if test="tradingStatus != null">
+				tradingStatus
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="phone != null">
+				#{phone},
+			</if>
+			<if test="serialNumber != null">
+				#{serialNumber},
+			</if>
+			<if test="transactionTime != null">
+				#{transactionTime},
+			</if>
+			<if test="amountOfTheTransaction != null">
+				#{amountOfTheTransaction},
+			</if>
+			<if test="tradingStatus != null">
+				#{tradingStatus}
+			</if>
+		</trim>
+	</insert>
+</mapper>

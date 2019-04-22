@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.white.interfaceone.dao.ProjectDao">
+	<resultMap id="BaseResultMap" type="com.white.interfaceone.entity.Project">
+	
+		<result column="projectName" property="projectName" jdbcType="VARCHAR" />
+		<result column="projectId" property="projectId" jdbcType="VARCHAR" />
+		<result column="totalProject" property="totalProject" jdbcType="DOUBLE" />
+		<result column="remainingAmount" property="remainingAmount" jdbcType="DOUBLE" />
+		<result column="projectDeadline" property="projectDeadline" jdbcType="VARCHAR" />
+		<result column="annualInterestRate" property="annualInterestRate" jdbcType="DOUBLE" />
+		<result column="extraInterestRate" property="extraInterestRate" jdbcType="DOUBLE" />
+		<result column="validityPeriod" property="validityPeriod" jdbcType="BIGINT" />
+		<result column="releaseTime" property="releaseTime" jdbcType="BIGINT" />
+		<result column="entryTime" property="entryTime" jdbcType="BIGINT" />
+		<result column="projectStatus" property="projectStatus" jdbcType="BIGINT" />
+	</resultMap>
+
+	<!-- 查询订单信息 -->
+	<select id="selectProjectId" resultMap="BaseResultMap"
+		parameterType="com.white.interfaceone.entity.Project">
+		select * from project
+		where projectId = #{projectId}
+	</select>
+	
+	<!-- 查询所有 -->
+	<select id="selectAll" resultMap="BaseResultMap">
+		select * from project
+	</select>
+	<!-- 回款信息查询 -->
+	<select id="selectPaybackAll" resultMap="BaseResultMap">
+		SELECT * FROM project WHERE remainingAmount = 0 AND projectStatus = 0
+	</select>
+	
+	<!-- 修改UUID、时间-->
+	<update id="updateAll" parameterType="com.white.interfaceone.entity.Project">
+		update project
+		<set>
+			<if test="projectName != null">
+				projectName = #{projectName},
+			</if>
+			<if test="totalProject != null">
+				totalProject = #{totalProject},
+			</if>
+			<if test="remainingAmount != null">
+				remainingAmount = #{remainingAmount},
+			</if>
+			<if test="projectDeadline != null">
+				projectDeadline = #{projectDeadline},
+			</if>
+			<if test="annualInterestRate != null">
+				annualInterestRate = #{annualInterestRate},
+			</if>
+			<if test="extraInterestRate != null">
+				extraInterestRate = #{extraInterestRate},
+			</if>
+			<if test="validityPeriod != null">
+				validityPeriod = #{validityPeriod},
+			</if>
+			<if test="releaseTime != null">
+				releaseTime = #{releaseTime},
+			</if>
+			<if test="entryTime != null">
+				entryTime = #{entryTime}
+			</if>
+		</set>
+		where projectId = #{projectId}
+	</update>
+	<!-- 修改项目余额-->
+	<update id="updateAmount" parameterType="com.white.interfaceone.entity.Project">
+		update project
+		<set>
+			<if test="remainingAmount != null">
+				remainingAmount = #{remainingAmount}
+			</if>
+		</set>
+		where projectId = #{projectId}
+	</update>
+	<!-- 修改回款时间-->
+	<update id="updateReleaseTime" parameterType="com.white.interfaceone.entity.Project">
+		update project
+		<set>
+			<if test="releaseTime != null">
+				releaseTime = #{releaseTime}
+			</if>
+		</set>
+		where projectId = #{projectId}
+	</update>
+	<!-- 项目状态-->
+	<update id="updateProjectStatus" parameterType="com.white.interfaceone.entity.Project">
+		update project
+		<set>
+			<if test="projectStatus != null">
+				projectStatus = #{projectStatus}
+			</if>
+		</set>
+		where projectId = #{projectId}
+	</update>
+	
+	
+	<!-- 新增订单号 -->
+	<insert id="insertAll" parameterType="com.white.interfaceone.entity.Project">
+		insert into project
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="projectName != null">
+				projectName,
+			</if>
+			<if test="projectId != null">
+				projectId,
+			</if>
+			<if test="totalProject != null">
+				totalProject,
+			</if>
+			<if test="remainingAmount != null">
+				remainingAmount,
+			</if>
+			<if test="projectDeadline != null">
+				projectDeadline,
+			</if>
+			<if test="annualInterestRate != null">
+				annualInterestRate,
+			</if>
+			<if test="extraInterestRate != null">
+				extraInterestRate,
+			</if>
+			<if test="validityPeriod != null">
+				validityPeriod,
+			</if>
+			<if test="releaseTime != null">
+				releaseTime,
+			</if>
+			<if test="entryTime != null">
+				entryTime,
+			</if>
+			<if test="projectStatus != null">
+				projectStatus
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="projectName != null">
+				#{projectName},
+			</if>
+			<if test="projectId != null">
+				#{projectId},
+			</if>
+			<if test="totalProject != null">
+				#{totalProject},
+			</if>
+			<if test="remainingAmount != null">
+				#{remainingAmount},
+			</if>
+			<if test="projectDeadline != null">
+				#{projectDeadline},
+			</if>
+			<if test="annualInterestRate != null">
+				#{annualInterestRate},
+			</if>
+			<if test="extraInterestRate != null">
+				#{extraInterestRate},
+			</if>
+			<if test="validityPeriod != null">
+				#{validityPeriod},
+			</if>
+			<if test="releaseTime != null">
+				#{releaseTime},
+			</if>
+			<if test="entryTime != null">
+				#{entryTime},
+			</if>
+			<if test="projectStatus != null">
+				#{projectStatus}
+			</if>
+		</trim>
+	</insert>
+</mapper>

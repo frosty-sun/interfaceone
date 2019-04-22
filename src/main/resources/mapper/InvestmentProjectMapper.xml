@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.white.interfaceone.dao.InvestmentProjectDao">
+	<resultMap id="BaseResultMap" type="com.white.interfaceone.entity.InvestmentProject">
+	
+		<result column="investmentId" property="investmentId" jdbcType="VARCHAR" />
+		<result column="investmentAmount" property="investmentAmount" jdbcType="DOUBLE" />
+		<result column="investmentSerialNumber" property="investmentSerialNumber" jdbcType="VARCHAR" />
+		<result column="investmentProjectId" property="investmentProjectId" jdbcType="VARCHAR" />
+		<result column="linkedAccount" property="linkedAccount" jdbcType="VARCHAR" />
+		<result column="investmentTime" property="investmentTime" jdbcType="BIGINT" />
+		<result column="biddingStatus" property="biddingStatus" jdbcType="INTEGER" />
+	</resultMap>
+
+	<!-- 根据项目ID过滤 -->
+	<select id="selectProjectId" resultMap="BaseResultMap"
+		parameterType="com.white.interfaceone.entity.InvestmentProject">
+		select * from investment_project
+		where investmentProjectId = #{investmentProjectId}
+	</select>
+	<!-- 根据账号过滤 -->
+	<select id="selectAccount" resultMap="BaseResultMap">
+		select * from investment_project
+		where linkedAccount = #{linkedAccount}
+	</select>
+	<!-- 根据投资单子ID过滤 -->
+	<select id="selectInvestmentId" resultMap="BaseResultMap"
+		parameterType="com.white.interfaceone.entity.InvestmentProject">
+		select * from investment_project
+		where investmentId = #{investmentId}
+	</select>
+	<!-- 全量查询 -->
+	<select id="selectAll" resultMap="BaseResultMap"
+		parameterType="com.white.interfaceone.entity.InvestmentProject">
+		select * from investment_project
+	</select>
+	
+	<!-- 修改UUID、时间-->
+	<update id="updateAll" parameterType="com.white.interfaceone.entity.InvestmentProject">
+		update investment_project
+		<set>
+			<if test="investmentId != null">
+				investmentId = #{investmentId},
+			</if>
+			<if test="investmentAmount != null">
+				investmentAmount = #{investmentAmount},
+			</if>
+			<if test="investmentSerialNumber != null">
+				investmentSerialNumber = #{investmentSerialNumber},
+			</if>
+			<if test="investmentProjectId != null">
+				investmentProjectId = #{investmentProjectId},
+			</if>
+			<if test="linkedAccount != null">
+				linkedAccount = #{linkedAccount},
+			</if>
+			<if test="investmentTime != null">
+				investmentTime = #{investmentTime},
+			</if>
+			<if test="biddingStatus != null">
+				biddingStatus = #{biddingStatus}
+			</if>
+		</set>
+		where linkedAccount = #{linkedAccount}
+	</update>
+	
+	<!-- 修改回款状态-->
+	<update id="updatePaymentStatus" parameterType="com.white.interfaceone.entity.InvestmentProject">
+		update investment_project
+		<set>
+			<if test="biddingStatus != null">
+				biddingStatus = #{biddingStatus}
+			</if>
+		</set>
+		where investmentId = #{investmentId}
+	</update>
+	
+	
+	<!-- 新增订单号 -->
+	<insert id="insertAll" parameterType="com.white.interfaceone.entity.InvestmentProject">
+		insert into investment_project
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="investmentId != null">
+				investmentId,
+			</if>
+			<if test="investmentAmount != null">
+				investmentAmount,
+			</if>
+			<if test="investmentSerialNumber != null">
+				investmentSerialNumber,
+			</if>
+			<if test="investmentProjectId != null">
+				investmentProjectId,
+			</if>
+			<if test="linkedAccount != null">
+				linkedAccount,
+			</if>
+			<if test="investmentTime != null">
+				investmentTime,
+			</if>
+			<if test="biddingStatus != null">
+				biddingStatus
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="investmentId != null">
+				#{investmentId},
+			</if>
+			<if test="investmentAmount != null">
+				#{investmentAmount},
+			</if>
+			<if test="investmentSerialNumber != null">
+				#{investmentSerialNumber},
+			</if>
+			<if test="investmentProjectId != null">
+				#{investmentProjectId},
+			</if>
+			<if test="linkedAccount != null">
+				#{linkedAccount},
+			</if>
+			<if test="investmentTime != null">
+				#{investmentTime},
+			</if>
+			<if test="biddingStatus != null">
+				#{biddingStatus}
+			</if>
+		</trim>
+	</insert>
+</mapper>

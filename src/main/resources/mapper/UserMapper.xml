@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.white.interfaceone.dao.UserDao">
+	<resultMap id="BaseResultMap" type="com.white.interfaceone.entity.User">
+	
+		<result column="passwd" property="passWd" jdbcType="VARCHAR" />
+		<result column="user_name" property="userName" jdbcType="VARCHAR" />
+		<result column="id_card" property="idCard" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="balance" property="balance"	jdbcType="DOUBLE" />
+		<result column="payment_password" property="paymentPassword"	jdbcType="VARCHAR" />
+		<result column="strUUID" property="strUUID"	jdbcType="VARCHAR" />
+		<result column="currentUnix" property="currentUnix"	jdbcType="BIGINT" />
+		<result column="certificationCode" property="certificationCode"	jdbcType="INTEGER" />
+		<result column="certificationNumber" property="certificationNumber"	jdbcType="INTEGER" />
+		<result column="certificationTime" property="certificationTime"	jdbcType="BIGINT" />
+		<result column="certificationUUIDTime" property="certificationUUIDTime"	jdbcType="BIGINT" />
+	</resultMap>
+	
+	<!-- 查询UUID -->
+	<select id="selectByUserUUID" resultMap="BaseResultMap"
+		parameterType="com.white.interfaceone.entity.User">
+		select strUUID,certificationUUIDTime from interfaceone_user
+		where phone = #{phone}
+	</select>
+	
+	<!-- 查询余额 -->
+	<select id="selectByAmount" resultMap="BaseResultMap"
+		parameterType="com.white.interfaceone.entity.User">
+		select balance,payment_password from interfaceone_user
+		where phone = #{phone}
+	</select>
+	
+	
+	<!-- 身份验证信息 -->
+	<select id="selectByUserIdCard" resultMap="BaseResultMap"
+		parameterType="com.white.interfaceone.entity.User">
+		select user_name,
+			   id_card,
+			   phone,
+			   certificationCode,
+			   certificationNumber,
+			   certificationTime,
+			   certificationUUIDTime
+		from interfaceone_user where phone = #{phone}
+	</select>
+	
+	<!-- 身份验证信息 -->
+	<select id="selectByUserPayPassWd" resultMap="BaseResultMap"
+		parameterType="com.white.interfaceone.entity.User">
+		select user_name,id_card,payment_password
+		from interfaceone_user where phone = #{phone}
+	</select>
+	
+	
+	<!-- 修改UUID、时间-->
+	<update id="updateUserUUIDtime" parameterType="com.white.interfaceone.entity.User">
+		update interfaceone_user
+		<set>
+			<if test="strUUID != null">
+				strUUID = #{strUUID},
+			</if>
+			<if test="certificationUUIDTime != null">
+				certificationUUIDTime = #{certificationUUIDTime}
+			</if>
+		</set>
+		where phone = #{phone}
+	</update>
+	
+
+	<!-- 查询用户信息 -->
+	<select id="selectByUser" resultMap="BaseResultMap"
+		parameterType="com.white.interfaceone.entity.User">
+		select * from interfaceone_user
+		where phone = #{phone}
+	</select>
+	
+	
+ 	<!-- 登录查询密码 -->
+ 	<select id="selectByLogIn" resultMap="BaseResultMap" 
+ 		parameterType="com.white.interfaceone.entity.User">
+		select passwd,payment_password from interfaceone_user
+		 where phone = #{phone}
+	</select>
+	
+ 	<!-- 支付查询密码 -->
+ 	<select id="selectByPay" resultMap="BaseResultMap"
+ 		parameterType="com.white.interfaceone.entity.User">
+		select payment_password from interfaceone_user
+		 where phone = #{phone}
+	</select>
+	
+	
+	<!-- 注销 -->
+	<delete id="delUser" parameterType="com.white.interfaceone.entity.User">
+		delete from interfaceone_user
+		where phone = #{phone}
+	</delete>
+	<!-- 注册 -->
+	
+	<insert id="insertUser" parameterType="com.white.interfaceone.entity.User">
+		insert into interfaceone_user (phone, passwd)
+		values (#{phone}, #{passWd})
+	</insert>
+	
+	<!-- 检查用户名是否重复 -->
+	<select id="insertUserDetection" resultType="java.lang.Integer">
+		select count(*) from interfaceone_user where phone = #{phone}
+	</select>
+	
+	<!-- 实名认证、充值、密码修改-->
+	<update id="updateUser" parameterType="com.white.interfaceone.entity.User">
+		update interfaceone_user
+		<set>
+			<if test="userName != null">
+				user_name = #{userName},
+			</if>
+			<if test="idCard != null">
+				id_card = #{idCard},
+			</if>
+			<if test="certificationCode != null">
+				certificationCode = #{certificationCode},
+			</if>
+			<if test="certificationNumber != null">
+				certificationNumber = #{certificationNumber},
+			</if>
+			<if test="certificationTime != null">
+				certificationTime = #{certificationTime}
+			</if>
+		</set>
+		where phone = #{phone}
+	</update>
+	
+	
+	<!-- 认证失败，进行次数和认证时间更新-->
+	<update id="updateUserError" parameterType="com.white.interfaceone.entity.User">
+		update interfaceone_user
+		<set>
+			<if test="certificationCode != null">
+				certificationCode = #{certificationCode},
+			</if>
+			<if test="certificationNumber != null">
+				certificationNumber = #{certificationNumber},
+			</if>
+			<if test="certificationNumber != null">
+				certificationTime = #{certificationTime}
+			</if>
+		</set>
+		where phone = #{phone}
+	</update>
+	
+	<!-- 充值消费 -->
+	<update id="updateAmount" parameterType="com.white.interfaceone.entity.User">
+		update interfaceone_user
+		<set>
+			<if test="balance != null">
+				balance = #{balance}
+			</if>
+		</set>
+		where phone = #{phone}
+	</update>
+	<!-- 修改登录密码 -->
+	<update id="updateLoginPassword" parameterType="com.white.interfaceone.entity.User">
+		update interfaceone_user
+		<set>
+			<if test="passWd != null">
+				passwd = #{passWd}
+			</if>
+		</set>
+		where phone = #{phone}
+	</update>
+	
+	<!-- 修改支付密码 -->
+	<update id="updatePaymentPassword" parameterType="com.white.interfaceone.entity.User">
+		update interfaceone_user
+		<set>
+			<if test="passWd != null">
+				passwd = #{passWd},
+			</if>
+			<if test="paymentPassword != null">
+				payment_password = #{paymentPassword}
+			</if>
+		</set>
+		where phone = #{phone}
+	</update>
+</mapper>

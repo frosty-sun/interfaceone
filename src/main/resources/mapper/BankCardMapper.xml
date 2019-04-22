@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.white.interfaceone.dao.BankCardDao">
+	<resultMap id="BaseResultMap" type="com.white.interfaceone.entity.BankCard">
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="id_card" property="idCard" jdbcType="VARCHAR" />
+		<result column="cardholder_name" property="cardholderName" jdbcType="VARCHAR" />
+		<result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+		<result column="bank_card_number" property="bankCardNumber" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 查询银行卡信息，账号和身份证号 -->
+	<select id="selectByBankCard" resultMap="BaseResultMap"
+		parameterType="com.white.interfaceone.entity.BankCard">
+		select * from interfaceone_bank_card
+		where phone = #{phone} and cardholder_name = #{bankCardNumber}
+	</select>
+	<!-- 查询银行卡信息，账号和身份证号 -->
+	<select id="selectByBankCardAll" resultMap="BaseResultMap"
+		parameterType="com.white.interfaceone.entity.BankCard">
+		select * from interfaceone_bank_card
+		where phone = #{phone}
+	</select>
+	
+	<!-- 验证银行卡信息 -->
+	<select id="selectByBankCardVerification" resultType="java.lang.Integer">
+		select count(*) from interfaceone_bank_card
+		where bank_card_number = #{bankCardNumber} and phone = #{phone}
+	</select>
+	<!-- 验证银行卡信息 -->
+	<select id="selectCardCount" resultType="java.lang.Integer">
+		select count(*) from interfaceone_bank_card
+		where phone = #{phone}
+	</select>
+	
+	
+	<!-- 解绑银行卡 -->
+	<delete id="delBankCard" parameterType="com.white.interfaceone.entity.BankCard">
+		delete from interfaceone_bank_card
+		where phone = #{phone} AND bank_card_number = #{bankCardNumber}
+	</delete>
+	<!-- 绑定银行卡 -->
+	<insert id="insertBankCard" parameterType="com.white.interfaceone.entity.BankCard">
+		insert into interfaceone_bank_card
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="phone != null">
+				phone,
+			</if>
+			<if test="idCard != null">
+				id_card,
+			</if>
+			<if test="cardholderName != null">
+				cardholder_name,
+			</if>
+			<if test="bankName != null">
+				bank_name,
+			</if>
+			<if test="bankCardNumber != null">
+				bank_card_number
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="phone != null">
+				#{phone},
+			</if>
+			<if test="idCard != null">
+				#{idCard},
+			</if>
+			<if test="cardholderName != null">
+				#{cardholderName},
+			</if>
+			<if test="bankName != null">
+				#{bankName},
+			</if>
+			<if test="bankCardNumber != null">
+				#{bankCardNumber}
+			</if>
+		</trim>
+	</insert>
+</mapper>

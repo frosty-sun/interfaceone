@@ -1,0 +1,58 @@
+# 设置tomcat端口号以及默认访问路径
+server:
+  port: 8080
+  servlet:
+    context-path: /
+  tomcat:
+    uri-encoding: utf-8  # 设置配置文件编码为UTF-8
+
+
+spring:
+  mvc:
+    view: # 配置默认访问的前端页面位置
+      prefix: /static
+      suffix: .html
+  datasource:  # JDBC连接Mysql6 com.mysql.cj.jdbc.Driver， 需要指定时区serverTimezone:如果设定serverTimezone=UTC，会比中国时间早8个小时，如果在中国，可以选择Asia/Shanghai或者Asia/Hongkong
+    url: jdbc:mysql://192.168.3.210:3306/interface_one?serverTimezone=Hongkong&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: root@123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    tomcat:
+      max-age: 1800 # 配置数据库链接池超时时间
+  jpa:
+    hibernate:
+      ddl-auto: update # 链接数据库必备参数
+  http:  # 设置配置文件编码为UTF-8
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  messages:
+    encoding: UTF-8
+
+
+# 该配置节点为独立的节点，有很多同学容易将这个配置放在spring的节点下，导致配置无法被识别
+mybatis:
+  mapper-locations: classpath:mapper/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
+  type-aliases-package: com.white.interfaceone.entity  # 注意：对应实体类的路径
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  # 此处增加日志中SQL打印
+
+#pagehelper分页插件
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+
+
+# 日志配置
+logging:
+  file: ../logs/informationEntry.log
+  level:
+    #    com.example.informationEntry.dao: debug  # 对日志进行debug也可以打印SQL日志
+    root: info
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger- %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm.SSS} [%thread] %-5level %logger- %msg%n"
