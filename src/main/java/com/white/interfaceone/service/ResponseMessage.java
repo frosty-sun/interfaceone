@@ -37,7 +37,7 @@ public class ResponseMessage {
 	* @throws
 	 */
 	public static Map<String, Object> registrationSuccess(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_SESSION_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, ConstantParam.MESSAGE_SESSION);
 		log.info("=======注册成功！==========");
@@ -54,7 +54,7 @@ public class ResponseMessage {
 	* @throws
 	 */
 	public static Map<String, Object> connectionRegistrationFailed(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "数据库连接异常！");
 		log.info("=======数据库连接异常！==========");
@@ -70,7 +70,7 @@ public class ResponseMessage {
 	* @throws
 	 */
 	public static Map<String, Object> informationErrorRegistrationFailed(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "用户名或者密码为空!");
 		log.info("=======用户名为空，注册失败！==========");
@@ -85,7 +85,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> informationErrorRegistrationFailed1(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "密码长度小于8位，注册失败！");
 		log.info("=======密码长度小于8位，注册失败！==========");
@@ -100,7 +100,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> informationErrorRegistrationFailed2(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "密码长度大于32位，注册失败！");
 		log.info("=======密码长度大于32位，注册失败！==========");
@@ -115,7 +115,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> informationErrorRegistrationFailed3(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "短信验证码为空，注册失败！");
 		log.info("=======短信验证码为空，注册失败！==========");
@@ -131,7 +131,7 @@ public class ResponseMessage {
 	* @throws
 	 */
 	public static Map<String, Object> userRepetitionRegistrationFailed(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "用户名重复，注册失败！");
 		log.info("=======用户名重复，注册失败！==========");
@@ -147,7 +147,7 @@ public class ResponseMessage {
 	* @throws
 	 */
 	public static Map<String, Object> loginSuccessful(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_SESSION_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "账号密码验证成功，token获取失败！");
 		log.info("=======账号密码验证成功，token获取失败！==========");
@@ -162,8 +162,8 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> loginSuccessful1(User param){
-		Map<String , Object> responseParam1 = new HashMap<>();
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam1 = new LinkedHashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		//集成token传参
 		responseParam1.put(ConstantParam.PARAM_TOKEN, param.getStrUUID());
 		responseParam.put(ConstantParam.PARAM_DATA, responseParam1);
@@ -182,7 +182,7 @@ public class ResponseMessage {
 	* @throws
 	 */
 	public static Map<String, Object> loginFailed(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "用户名或密码错误，登录失败！");
 		log.info("=======用户名或密码错误，登录失败！==========");
@@ -197,7 +197,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> loginFailed2(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "手机号输入有误，注册失败，请验证手机号码是否正确！");
 		log.info("=======手机号输入有误，注册失败，请验证手机号码是否正确！==========");
@@ -212,7 +212,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> loginFailed3(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "两次输入的密码不匹配，请重新输入！");
 		log.info("=======两次输入的密码不匹配，请重新输入！==========");
@@ -229,7 +229,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> loginFailed4(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "短信验证码过期，请重新获取！");
 		log.info("=======短信验证码过期，请重新获取！==========");
@@ -245,7 +245,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> loginFailed5(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "短信验证码输入错误，请重新输入");
 		log.info("=======短信验证码输入错误，请重新输入！==========");
@@ -261,7 +261,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> loginFailed1(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "用户名或密码为空，登录失败!");
 		log.info("=======用户名或密码为空，登录失败！==========");
@@ -276,7 +276,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> loginFailed6(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "账号验证失败！");
 		log.info("=======账号验证失败！==========");
@@ -291,7 +291,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> loginFailed7(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_SESSION_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "修改密码成功！");
 		log.info("=======修改密码成功！==========");
@@ -309,8 +309,8 @@ public class ResponseMessage {
 	* @throws
 	 */
 	public static Map<String, Object> verificationPhoneFailed(){
-		Map<String , Object> responseParam = new HashMap<>();
-		Map<String , Object> responseParam1 = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
+		Map<String , Object> responseParam1 = new LinkedHashMap<>();
 		responseParam1.put(ConstantParam.PARAM_CERTIFICATION_STATUS, ConstantParam.PARAM_AUTHENTIATION_FAILD);
 		responseParam.put(ConstantParam.PARAM_DATA, responseParam1);
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
@@ -328,8 +328,8 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> verificationPhoneFailed1(Long certificationTime){
-		Map<String , Object> responseParam = new HashMap<>();
-		Map<String , Object> responseParam1 = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
+		Map<String , Object> responseParam1 = new LinkedHashMap<>();
 		certificationTime = ConstantParam.ROUND_THE_CLOCK_UNIX - (UtilMethod.unixString() - certificationTime);
 		responseParam1.put(ConstantParam.PARAM_WATING_TIME, UtilMethod.getUnixToTime(certificationTime).get(ConstantParam.PARAM_ENGLISH));
 		responseParam.put(ConstantParam.PARAM_DATA, responseParam1);
@@ -348,8 +348,8 @@ public class ResponseMessage {
 	* @throws
 	 */
 	public static Map<String, Object> verificationUserNameFailed(){
-		Map<String , Object> responseParam = new HashMap<>();
-		Map<String , Object> responseParam1 = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
+		Map<String , Object> responseParam1 = new LinkedHashMap<>();
 		responseParam1.put(ConstantParam.PARAM_CERTIFICATION_STATUS, ConstantParam.PARAM_AUTHENTIATION_FAILD);
 		responseParam.put(ConstantParam.PARAM_DATA, responseParam1);
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
@@ -366,7 +366,7 @@ public class ResponseMessage {
 	* @throws
 	 */
 	public static Map<String, Object> verificationUserNameFailed01(User paramUser){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "账号：" + paramUser.getPhone() + "已被身份证" + paramUser.getIdCard() + "绑定！");
 		log.info("=======账号：" + paramUser.getPhone() + "已被身份证" + paramUser.getIdCard() + "绑定！==========");
@@ -382,8 +382,8 @@ public class ResponseMessage {
 	* @throws
 	 */
 	public static Map<String, Object> verificationIdCardFailed(){
-		Map<String , Object> responseParam = new HashMap<>();
-		Map<String , Object> responseParam1 = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
+		Map<String , Object> responseParam1 = new LinkedHashMap<>();
 		responseParam1.put(ConstantParam.PARAM_CERTIFICATION_STATUS, ConstantParam.PARAM_AUTHENTIATION_FAILD);
 		responseParam.put(ConstantParam.PARAM_DATA, responseParam1);
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
@@ -401,8 +401,8 @@ public class ResponseMessage {
 	* @throws
 	 */
 	public static Map<String, Object> bindingSuccess(){
-		Map<String , Object> responseParam = new HashMap<>();
-		Map<String , Object> responseParam1 = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
+		Map<String , Object> responseParam1 = new LinkedHashMap<>();
 		responseParam1.put(ConstantParam.PARAM_CERTIFICATION_STATUS, ConstantParam.PARAM_SUCCESSFUL_CERTIFICATION);
 		responseParam.put(ConstantParam.PARAM_DATA, responseParam1);
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_SESSION_CODE);
@@ -420,7 +420,7 @@ public class ResponseMessage {
 	* @throws
 	 */
 	public static Map<String, Object> bindBankCardSuccessfully(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_SESSION_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "绑定成功！");
 		log.info("=======绑定成功！==========");
@@ -435,7 +435,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> bindBankCardSuccessfully1(Map<String, String> param){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.PARAM_DATA, param);
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_SESSION_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "银行卡归属查询成功！");
@@ -451,7 +451,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> bindBankCardError(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "行卡归属查询失败，请至少输入6位！");
 		log.info("=======银行卡归属查询失败，请至少输入6位！==========");
@@ -467,7 +467,7 @@ public class ResponseMessage {
 	* @throws
 	 */
 	public static Map<String, Object> duccessfullyTiedTheCard(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_SESSION_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "银行卡绑定成功！");
 		log.info("=======银行卡绑定成功！==========");
@@ -482,7 +482,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> cardingFailedOne(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "身份证号输入错误，绑定失败！");
 		log.info("=======身份证号输入错误，绑定失败！==========");
@@ -497,7 +497,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> cardingFailedTwo(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "持卡人姓名输入错误，绑定失败！");
 		log.info("=======持卡人姓名输入错误，绑定失败！==========");
@@ -512,7 +512,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> cardingFailedThree(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "银行名称输入错误，绑定失败！");
 		log.info("=======银行名称输入错误，绑定失败！==========");
@@ -527,7 +527,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> cardingFailedFour(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "帐号输入错误，绑定失败！");
 		log.info("=======帐号输入错误，绑定失败！==========");
@@ -542,7 +542,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> cardingFailedFives(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "银行卡号输入错误，绑定失败！");
 		log.info("=======银行卡号输入错误，绑定失败！==========");
@@ -557,7 +557,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> bankCardRepeat(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "此卡已被绑定，绑定失败！");
 		log.info("=======此卡已被绑定，绑定失败！==========");
@@ -572,7 +572,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> rechargeSuccessful(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_SESSION_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "充值成功！");
 		log.info("=========充值成功！==========");
@@ -588,7 +588,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> rechargeFailedOne(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "支付密码错误，充值失败！");
 		log.info("=======支付密码错误，充值失败！==========");
@@ -604,7 +604,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> rechargeFailedOne5(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "输入金额不正确,每次最少0.01元！");
 		log.info("=======输入金额不正确,每次最少0.01元！==========");
@@ -619,7 +619,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> rechargeFailedOne6(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "输入金额不正确，每次最多50000元！");
 		log.info("=======输入金额不正确，每次最多50000元！==========");
@@ -634,7 +634,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> rechargeFailedOne7(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "输入金额不正确,每次最多200000元！");
 		log.info("=======输入金额不正确,每次最多200000元！==========");
@@ -650,7 +650,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> rechargeFailedOne1(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "非第一次绑定，如需修改，请先点击修改支付密码！");
 		log.info("=======非第一次绑定，如需修改，请先点击修改支付密码！==========");
@@ -666,7 +666,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> rechargeFailedOne3(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "密码输入有误！");
 		log.info("=======密码输入有误！==========");
@@ -682,7 +682,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> rechargeFailedOne4(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "支付密码未设置，请先设置支付密码！");
 		log.info("=======支付密码未设置，请先设置支付密码！==========");
@@ -697,7 +697,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> rechargeFailedOne2(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_SESSION_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "支付密码设置成功！");
 		log.info("=======支付密码设置成功！==========");
@@ -713,7 +713,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> rechargeFailedTwo(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "请先完成实名认证！");
 		log.info("=======请先完成实名认证！==========");
@@ -729,7 +729,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> rechargeFailedThree(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "充值失败，请先绑定银行卡！");
 		log.info("=======充值失败，请先绑定银行卡！==========");
@@ -745,7 +745,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> rechargeFailedFour(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "充值账号有误！");
 		log.info("=======充值账号有误！==========");
@@ -761,7 +761,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> rechargeOne(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_SESSION_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "提现成功！");
 		log.info("=======提现成功！==========");
@@ -777,7 +777,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> rechargeTwo(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "余额不足，提现失败！");
 		log.info("=======余额不足，提现失败！==========");
@@ -793,7 +793,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> rechargeThree(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "支付密码错误！");
 		log.info("=======支付密码错误！==========");
@@ -809,7 +809,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> untieError(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_SESSION_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "解绑银行卡失败，默认银行卡不可解绑！");
 		log.info("=======解绑银行卡失败，默认银行卡不可解绑！==========");
@@ -824,7 +824,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> untieError1(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_SESSION_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "解绑银行卡失败，SQL执行异常！");
 		log.info("=======解绑银行卡失败，SQL执行异常！==========");
@@ -839,7 +839,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> untieError2(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_SESSION_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "卡号为空！");
 		log.info("=======卡号为空！==========");
@@ -854,7 +854,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> untieError3(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_SESSION_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "卡号不合法！");
 		log.info("=======卡号不合法！==========");
@@ -869,7 +869,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> untieError4(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_SESSION_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "手机号不合法！");
 		log.info("=======手机号不合法！==========");
@@ -885,7 +885,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> untieSuccess(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_SESSION_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "解绑银行卡成功！");
 		log.info("=======解绑银行卡成功！==========");
@@ -904,7 +904,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> verificationToken(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_SESSION_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "登录状态验证失败，请重新登录！");
 		log.info("=======登录状态验证失败，请重新登录！==========");
@@ -919,7 +919,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> investment(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "剩余投资额不足！");
 		log.info("=======剩余投资额不足。==========");
@@ -934,7 +934,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> claim(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "项目未开始回款或回款时间不足30天，不满足转让条件！");
 		log.info("=======项目未开始回款或回款时间不足30天，不满足转让条件。==========");
@@ -949,7 +949,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> investment1(){
-		Map<String , Object> responseParam = new HashMap<>();
+		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "余额不足，请充值！");
 		log.info("=======余额不足，请充值。==========");
@@ -965,7 +965,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> projectEntry(){
-		Map<String, Object> responseParam = new HashMap<>();
+		Map<String, Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_SESSION_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "项目信息录入成功.");
 		log.info("=======项目信息录入成功。==========");
@@ -1057,7 +1057,7 @@ public class ResponseMessage {
 	 * @throws
 	 */
 	public static Map<String, Object> projectEntry2(){
-		Map<String, Object> responseParam = new HashMap<>();
+		Map<String, Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_SESSION_CODE);
 		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "项目投资成功");
 		log.info("=======项目投资成功。==========");
@@ -1153,7 +1153,7 @@ public class ResponseMessage {
 	public static Map<String, Object> queryCardSuccess(List<BankCard> listArray){
 		List<Map<String, Object>> list = new ArrayList<>();
 		for (BankCard bankCard : listArray) {
-			Map<String, Object> map = new HashMap<>();
+			Map<String, Object> map = new LinkedHashMap<>();
 			map.put("bankCard", bankCard.getBankName());
 			map.put("bankCardNumber", bankCard.getBankCardNumber());
 			list.add(map);

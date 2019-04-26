@@ -105,7 +105,7 @@
 
     <build>
         <!-- 自定义打包名称，如去除掉，则是项目名称+版本号+.war -->
-        <finalName>interfaceone</finalName>
+        <finalName>p2p</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
