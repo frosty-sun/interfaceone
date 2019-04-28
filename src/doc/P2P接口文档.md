@@ -12,20 +12,20 @@
 
 ##### 用户信息表（interfaceone_user）
 
-| 表字段                | 接口字段              | 翻译值                |
-| --------------------- | --------------------- | --------------------- |
-| PASSWD                | passWd                | 密码                  |
-| USER_NAME             | userName              | 用户姓名              |
-| ID_CARD               | idCard                | 身份证号              |
-| PHONE                 | phone                 | 手机号                |
-| BALANCE               | balance               | 余额                  |
-| PAYMENT_PASSWORD      | paymentPassword       | 支付密码              |
-| CURRENTUNIX           | currentUnix           | 当前时间              |
-| STRUUID               | token                 | token                 |
-| CERTIFICATIONCODE     | certificationCode     | 身份证绑定状态        |
-| CERTIFICATIONNUMBER   | certificationNumber   | 身份证绑定次数        |
-| CERTIFICATIONTIME     | certificationTime     | 身份证绑定操作时间    |
-| CERTIFICATIONUUIDTIME | certificationUUIDTime | token最后一次操作时间 |
+| 表字段                | 接口字段              | 翻译值                                                       |
+| --------------------- | --------------------- | ------------------------------------------------------------ |
+| PASSWD                | passWd                | 密码                                                         |
+| USER_NAME             | userName              | 用户姓名                                                     |
+| ID_CARD               | idCard                | 身份证号                                                     |
+| PHONE                 | phone                 | 手机号                                                       |
+| BALANCE               | balance               | 余额                                                         |
+| PAYMENT_PASSWORD      | paymentPassword       | 支付密码                                                     |
+| CURRENTUNIX           | currentUnix           | 当前时间                                                     |
+| STRUUID               | token                 | token                                                        |
+| CERTIFICATIONCODE     | certificationCode     | 身份证绑定状态（未认证：0，认证中：1，认证成功：2，认证失败：3） |
+| CERTIFICATIONNUMBER   | certificationNumber   | 身份证绑定次数                                               |
+| CERTIFICATIONTIME     | certificationTime     | 身份证绑定操作时间                                           |
+| CERTIFICATIONUUIDTIME | certificationUUIDTime | token最后一次操作时间                                        |
 
 ##### 投资项目表（investment_project）
 
@@ -103,7 +103,7 @@
 
 ```json
 请求方式:POST
-URL:http://192.168.3.210:8080/InterfaceOne/encryption
+URL:http://192.168.3.210:8080/p2p/encryption
 参数:
 	{
 		"pwd":"admin"
@@ -118,26 +118,26 @@ URL:http://192.168.3.210:8080/InterfaceOne/encryption
 ##### 手机验证码（已完成）
 ```json
 请求方式:POST
-URL:http://192.168.3.210:8080/InterfaceOne/SMSCode
+URL:http://192.168.3.210:8080/p2p/SMSCode
 参数：
 	{
 		"phone":"17629196006"
 	}
 	响应:
 	{
-		"message": "SMS verification code is successfully obtained.Verification code valid time 5 minutes!",
-		"statusCode": "2000",
-		"data": {
-    		"smsVerificationCode": "395134",
-    		"number": 6,
-    		"phone": "17629196006"
- 		}
-	}
+        "data": {
+            "smsVerificationCode": "500460",
+            "number": 1,
+            "phone": "17629196006"
+        },
+        "message": "短信验证码已成功获取。验证码有效时间为5分钟！",
+        "statusCode": "2000"
+    }
 ```
 ##### 注册（已完成）登录密码为至少8位
 ```json
 请求方式:POST
-URL:http://192.168.3.210:8080/InterfaceOne/register/index
+URL:http://192.168.3.210:8080/p2p/register
 参数:
 	{
 		"phone":"17629196006",
@@ -155,7 +155,7 @@ URL:http://192.168.3.210:8080/InterfaceOne/register/index
 ##### 登录（已完成）
 ```json
 	请求方式:POST
-	URL:http://192.168.3.210:8080/InterfaceOne/longin
+	URL:http://192.168.3.210:8080/p2p/longin
 	请求:
 		{
 			"phone":"17629196006",	
@@ -163,17 +163,17 @@ URL:http://192.168.3.210:8080/InterfaceOne/register/index
 		}
 	响应:
 		{
-  			"data": {
-    			"token": "8d9b71cda7dcef07f568cc5bdd62474a"			
-  			},
-  			"message": "login successful",
-  			"statusCode": "2000"
-		}
+            "data": {
+                "token": "e15372119240e6d05f4f6b14b25d7349"
+            },
+            "statusCode": "2000",
+            "message": "登录成功！"
+        }
 ```
 ##### 实名认证（已完成）
 ```json
 	请求方式:POST
-	URL:http://192.168.3.210:8080/InterfaceOne/realcertification
+	URL:http://192.168.3.210:8080/p2p/realcertification
 	请求:
 		{
 			"token":"8d9b71cda7dcef07f568cc5bdd62474a",
@@ -184,16 +184,16 @@ URL:http://192.168.3.210:8080/InterfaceOne/register/index
 	响应:
 		{
   			"data": {
-    			"certificationStatus": 2
+    			"certificationCode": 2
   			},
-  			"message": "Binding success",
+  			"message": "绑定成功！",
   			"statusCode": "2000"
 		}
 ```
 ##### 设置交易密码（已实现）交易密码为强制6位数字，会进行验证
 ```json
 	请求方式:POST
-	URL:http://192.168.3.210:8080/InterfaceOne/newpaypd
+	URL:http://192.168.3.210:8080/p2p/newpaypd
 	请求:
 		{
 			"token":"8d9b71cda7dcef07f568cc5bdd62474a",
@@ -202,14 +202,14 @@ URL:http://192.168.3.210:8080/InterfaceOne/register/index
 		}
 	响应:
 		{
-  			"message": "The payment password is set successfully!",
+  			"message": "支付密码设置成功！",
   			"statusCode": "2000"
 		}
 ```
 ##### 绑定银行卡（已完成）
 ```json
 	请求方式:POST
-	URL:http://192.168.3.210:8080/InterfaceOne/bindingbankcard
+	URL:http://192.168.3.210:8080/p2p/bindingbankcard
 	请求:
 		{
 			"token":"8d9b71cda7dcef07f568cc5bdd62474a",
@@ -218,11 +218,11 @@ URL:http://192.168.3.210:8080/InterfaceOne/register/index
 			"bankName":"Construction bank",
 			"cardholderName":"Jack",
 			"bankCardNumber":"6217001210024455220",
-			"paymentPassword":"353435"
+			"paymentPassword":"123123"
 		}
 	响应:
 		{
-			"message":"Bank card binding is successful",
+			"message":"银行卡绑定成功！",
 			"statusCode":"2000"
 		}
 ```
@@ -230,7 +230,7 @@ URL:http://192.168.3.210:8080/InterfaceOne/register/index
 - 其中数据库中的金额“+”在平台库代表充值操作，“-”代表提现操作，第三方库“+”代表从平台提现到银行卡，“-”代表从银行卡扣款到平台账户
 ```json
 	请求方式:POST
-	URL:http://192.168.3.210:8080/InterfaceOne/recharge
+	URL:http://192.168.3.210:8080/p2p/recharge
 	请求:
 		{
 			"token":"8d9b71cda7dcef07f568cc5bdd62474a",
@@ -241,14 +241,14 @@ URL:http://192.168.3.210:8080/InterfaceOne/register/index
 		}
 	响应:
 		{
-			"message":"Recharge successful",
+			"message":"充值成功",
 			"statusCode":"2000"
 		}
 ```
 ##### 发布项目（已实现）
 ```json
 	请求方式:POST
-	URL:http://192.168.3.210:8080/InterfaceOne/proRelease
+	URL:http://192.168.3.210:8080/p2p/proRelease
 	请求:
 		{
 			"token":"dfb0156dad84515abb396057cd233837",
@@ -262,7 +262,7 @@ URL:http://192.168.3.210:8080/InterfaceOne/register/index
 		}
 	响应:
 		{
-			"message":"Project information was entered successfully.",
+			"message":"项目信息录入成功.",
 			"statusCode":"2000"
 		}
 ```
@@ -294,7 +294,7 @@ URL:http://192.168.3.210:8080/InterfaceOne/register/index
 ##### 单个项目ID查询（已实现）
 ```json
 	请求方式:POST
-	URL:http://192.168.3.210:8080/InterfaceOne/queryProId
+	URL:http://192.168.3.210:8080/p2p/queryProId
 	请求:
 		{
 			"token":"eeab77d26532dbdc80c1ac5d4d099aec",	
@@ -304,7 +304,7 @@ URL:http://192.168.3.210:8080/InterfaceOne/register/index
 	响应:
 		{
 			"statusCode":"2000",
-			"message":"The project information query was successful.",
+			"message":"项目信息查询成功.",
 			"data":[
 				{
 					"projectName":"理财项目",						
@@ -324,7 +324,7 @@ URL:http://192.168.3.210:8080/InterfaceOne/register/index
 ##### 投资（已实现）
 ```json
 	请求方式:POST
-	URL:http://192.168.3.210:8080/InterfaceOne/investment
+	URL:http://192.168.3.210:8080/p2p/investment
 	请求:
 		{
 			"investmentAmount":"200000",								
@@ -335,14 +335,14 @@ URL:http://192.168.3.210:8080/InterfaceOne/register/index
 		}
 	响应:
 		{
-			"message":"The project was successfully invested.",
+			"message":"项目投资成功.",
 			"statusCode":"2000"
 		}
 ```
 ##### 投资信息查询（已实现）
 ```json
 	请求方式:POST
-	URL:http://192.168.3.210:8080/InterfaceOne/queryinvestment
+	URL:http://192.168.3.210:8080/p2p/queryinvestment
 	请求:
 		{
     		"phone":"17629196006",
@@ -351,7 +351,7 @@ URL:http://192.168.3.210:8080/InterfaceOne/register/index
 	响应:
 		{
  			"statusCode": "2000",
-  			"message": "Project information was entered successfully.",
+  			"message": "投资信息查询成功.",
   			"data": [
     			{
       				"investmentAmount": 20000,							
@@ -367,7 +367,7 @@ URL:http://192.168.3.210:8080/InterfaceOne/register/index
 ##### 债权转让计算（已实现）
 ```json
 	请求方式:POST
-	URL:http://192.168.3.210:8080/InterfaceOne/transferCalculation
+	URL:http://192.168.3.210:8080/p2p/transferCalculation
 	请求:
 		{
 			"phone":"17629196006",
@@ -377,7 +377,7 @@ URL:http://192.168.3.210:8080/InterfaceOne/register/index
 	响应:
 		{
   			"statusCode": "2000",
- 			"message": "The credit transfer information was calculated successfully.",
+ 			"message": "债权转让信息计算成功.",
   			"data": {
     			"principal": 20000,
     			"income": 36932.82,
@@ -390,9 +390,10 @@ URL:http://192.168.3.210:8080/InterfaceOne/register/index
 ##### 债权转让（已实现）
 ```json
 	请求方式:POST
-	URL:http://192.168.3.210:8080/InterfaceOne/transfer
+	URL:http://192.168.3.210:8080/p2p/transfer
 	请求:
 		{
+            "phone":"17629196006",
 			"token":"57382853144a00cdbbb3609465fa06d0",				
 			"investmentId":"29e69af2-a4ad-4aa9-8098-c682089e3e36",	
 			"principal":"20000",									
@@ -401,7 +402,7 @@ URL:http://192.168.3.210:8080/InterfaceOne/register/index
 	响应:
 		{
 			"statusCode":"2000",
-			"message":"The transfer of the creditor's rights is successful, and the interest has been simultaneously extracted to the balance."
+			"message":"债权转让成功，利息已同步提取到余额."
 		}
 ```
 ##### 回款（已实现）
@@ -410,7 +411,7 @@ URL:http://192.168.3.210:8080/InterfaceOne/register/index
 - 其中数据库中的金额“+”在平台库代表充值操作，“-”代表提现操作，第三方库“+”代表从平台提现到银行卡，“-”代表从银行卡扣款到平台账户
 ```json
 	请求方式:POST
-	URL:http://192.168.3.210:8080/InterfaceOne/consumption
+	URL:http://192.168.3.210:8080/p2p/consumption
 	请求:
 		{
 			"token":"57382853144a00cdbbb3609465fa06d0",	
@@ -421,14 +422,14 @@ URL:http://192.168.3.210:8080/InterfaceOne/register/index
 		}
 	响应:
 		{
-  			"message": "Cash withdrawal success",
+  			"message": "提现成功",
   			"statusCode": "2000"
 		}
 ```
 ##### 解绑卡（已实现）
 ```json
 	请求方式:POST
-	URL:http://192.168.3.210:8080/InterfaceOne/ubcard
+	URL:http://192.168.3.210:8080/p2p/ubcard
 	请求:
 		{
 			"token":"57382853144a00cdbbb3609465fa06d0",
@@ -438,14 +439,14 @@ URL:http://192.168.3.210:8080/InterfaceOne/register/index
 		}
 	响应:
 		{
-			"message": "Untied the bank card successfully!",
+			"message": "解绑银行卡成功!",
 			"statusCode": "2000"
 		}
 ```
 ##### 修改支付、登录密码
 ```json
 	请求方式:POST
-	URL:http://192.168.3.210:8080/InterfaceOne/chpwd
+	URL:http://192.168.3.210:8080/p2p/chpwd
 	请求:
 		{
 			"user":"17629196006",						
@@ -456,14 +457,14 @@ URL:http://192.168.3.210:8080/InterfaceOne/register/index
 		}
 	响应:
 		{
-			"message":"passwordhasbeenupdated.",
+			"message":"修改密码成功.",
 			"statusCode":"2000"
 		}
 ```
 ##### 注销账号（删除账号信息）
 ```json
 	请求方式:POST
-	URL:http://192.168.3.210:8080/InterfaceOne/Logout
+	URL:http://192.168.3.210:8080/p2p/Logout
 	请求:
 		{
 	    	"phone":"17629196006",
@@ -475,25 +476,5 @@ URL:http://192.168.3.210:8080/InterfaceOne/register/index
 		{
 	  		"statusCode": "2000",
 	  		"message": "Account cancellation is successful!"
-		}
-```
-##### 银行卡归属查询接口（已完成）
-```json
-	请求方式:POST
-	URL:http://192.168.3.210:8080/InterfaceOne/checkBankName
-	请求:
-		{
-			"token":"dfb0156dad84515abb396057cd233837",	
-			"banknCard":"6217001210024455220",		
-			"phone":"17629196006"
-		}
-	响应:
-		{
-			"data":{
-					"banknCard":"6217001210024455220",	
-					"banknName":"建设银行"				
-				},
-			"message":"Bankcardattributionquerysuccess!",
-			"statusCode":"2000"
 		}
 ```
