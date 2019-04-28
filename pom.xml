@@ -29,12 +29,19 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <!--此配置会导致war包部署之后不能访问接口-->
+            <!--<scope>provided</scope>-->
+        </dependency>
+        <!-- 开启此配置则打包为war文件，上面打war文件配置不开启，此选项无效,标记我们的tomcat使用我们自己的不使用spring boot自带的 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>2.0.1</version>
+            <version>2.0.0</version>
         </dependency>
 
         <!-- 开启spring boot热部署，修改代码后自动加载到jvm中 -->
@@ -87,26 +94,8 @@
             <artifactId>base64_2.11</artifactId>
             <version>0.2.0</version>
         </dependency>
-        <!--<dependency>
-            <groupId>org.quartz-scheduler</groupId>
-            <artifactId>quartz</artifactId>
-            <version>2.2.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.quartz-scheduler</groupId>
-            <artifactId>quartz-jobs</artifactId>
-            <version>2.2.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.25</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.7.6</version>
-        </dependency>-->
+
+
 
     </dependencies>
 

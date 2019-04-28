@@ -1,11 +1,6 @@
 package com.white.interfaceone.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import javax.annotation.Resource;
 
@@ -15,33 +10,10 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import com.alibaba.fastjson.JSON;
-import com.white.interfaceone.dao.BankCardDao;
-import com.white.interfaceone.dao.BankDao;
-import com.white.interfaceone.dao.InvestmentProjectDao;
-import com.white.interfaceone.dao.ProjectDao;
-import com.white.interfaceone.dao.ProjectreturnlogDao;
-import com.white.interfaceone.dao.RechargeWaterDao;
-import com.white.interfaceone.dao.UserDao;
-import com.white.interfaceone.dao.UserLoginDao;
-import com.white.interfaceone.entity.Bank;
-import com.white.interfaceone.entity.BankCard;
-import com.white.interfaceone.entity.BankCardRecharge;
-import com.white.interfaceone.entity.InvestmentProject;
-import com.white.interfaceone.entity.Project;
-import com.white.interfaceone.entity.Projectreturnlog;
-import com.white.interfaceone.entity.RechargeWater;
-import com.white.interfaceone.entity.User;
-import com.white.interfaceone.entity.UserBankCard;
-import com.white.interfaceone.entity.UserLogin;
-import com.white.interfaceone.service.ResponseMessage;
-import com.white.interfaceone.service.UserLogService;
-import com.white.interfaceone.util.ConstantParam;
-import com.white.interfaceone.util.GetCheckBankCard;
-import com.white.interfaceone.util.IdcardValidator;
-import com.white.interfaceone.util.PropertyUtil;
-import com.white.interfaceone.util.RequestCircuits;
-import com.white.interfaceone.util.UtilMethod;
-import com.white.interfaceone.util.ValidateUtils;
+import com.white.interfaceone.dao.*;
+import com.white.interfaceone.entity.*;
+import com.white.interfaceone.service.*;
+import com.white.interfaceone.util.*;
 
 import net.sf.json.JSONObject;
 
@@ -76,7 +48,6 @@ public class UserBankCarController {
 
     //密码加密测试接口
     @RequestMapping(value = "/encryption", method = RequestMethod.POST)
-    @ResponseBody
     public Map<String, Object> responseIndex(@RequestBody Map<String, Object> paraMap) {
         String pwd = UtilMethod.md5Encryption(String.valueOf(paraMap.get("pwd")));
         log.info("\n****************************************************************************************\n" +
@@ -97,7 +68,6 @@ public class UserBankCarController {
      * @Description: TODO(登录)
      */
     @RequestMapping(value = "/longin", method = RequestMethod.POST)
-    @ResponseBody
     public Map<String, Object> insertUser(@RequestBody User param) {
         log.info("接收到的参数为：" + JSONObject.fromObject(param));
         User user = new User();
