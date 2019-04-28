@@ -248,14 +248,14 @@ public class UtilMethod {
 		StringBuffer time = new StringBuffer();
 		StringBuffer time2 = new StringBuffer();
 		if (unix >= 3600) {
-			time.append(unix2 + ":");
+			time.append(unix2 + "小时");
 			time2.append(unix2 + " hours, ");
 		}
 		if(unix >= 60){
-			time.append(unix1%60 + ":");
+			time.append(unix1%60 + "分");
 			time2.append(unix1%60 + " minutes, ");
 		}
-		map.put(ConstantParam.PARAM_ENGLISH, String.valueOf(time.append(unix % 60)));
+		map.put(ConstantParam.PARAM_ENGLISH, String.valueOf(time.append(unix % 60 + "秒")));
 		map.put(ConstantParam.PARAM_CHINESE, String.valueOf(time2.append(unix % 60 + " seconds")));
 		return map;
 	}

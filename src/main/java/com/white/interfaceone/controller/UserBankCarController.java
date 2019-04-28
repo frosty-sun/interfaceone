@@ -79,9 +79,9 @@ public class UserBankCarController {
     @ResponseBody
     public Map<String, Object> responseIndex(@RequestBody Map<String, Object> paraMap) {
         String pwd = UtilMethod.md5Encryption(String.valueOf(paraMap.get("pwd")));
-        log.info("****************************************************************************************\n" +
-                "*                   调用加密测试接口，此接口仅供测试调取明文加密操作                                            *\n" +
-                "****************************************************************************************");
+        log.info("\n****************************************************************************************\n" +
+                 "*                   调用加密测试接口，此接口仅供测试调取明文加密操作                            *\n" +
+                 "****************************************************************************************");
         log.info("明文：" + paraMap.get("pwd") + "加密加盐后为：" + pwd);
         paraMap.put("statusCode", "2000");
         paraMap.put("pwd", pwd);
@@ -91,7 +91,7 @@ public class UserBankCarController {
 
     /**
      * @param @return 设定文件
-     * @return Map<String   ,   String>    返回类型
+     * @return Map<String, String>    返回类型
      * @throws
      * @Title: insertUser
      * @Description: TODO(登录)
@@ -306,12 +306,12 @@ public class UserBankCarController {
     /**
      * @param @param  param
      * @param @return 设定文件
-     * @return Map<String   ,   Object>    返回类型
+     * @return Map<String, Object>    返回类型
      * @throws
      * @Title: registerIndex
      * @Description: TODO(注册)
      */
-    @RequestMapping(value = "/register/index", method = RequestMethod.POST)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> registerIndex(@RequestBody User param) {
         log.info("接收到的参数为：" + JSONObject.fromObject(param));
@@ -344,7 +344,7 @@ public class UserBankCarController {
                                         log.info("当前系统时间：" + UtilMethod.unixString());
                                         log.info("获取验证码的时间：" + userLogin.getCurrentUnix());
                                         log.info("验证码获取已：" + (UtilMethod.unixString() - userLogin.getCurrentUnix())
-                                                + "秒");
+                                                + "秒过期");
                                         log.info("验证码过期还有："
                                                 + (ConstantParam.FIVE_MINUTES_UNIX
                                                 - (UtilMethod.unixString() - userLogin.getCurrentUnix()))
@@ -397,7 +397,7 @@ public class UserBankCarController {
     /**
      * @param @param  param
      * @param @return 设定文件
-     * @return Map<String   ,   Object>    返回类型
+     * @return Map<String, Object>    返回类型
      * @throws
      * @Title: RealCertification
      * @Description: TODO(绑定身份证 、 手机号 、 姓名信息)
@@ -415,7 +415,7 @@ public class UserBankCarController {
         }
         log.info("接收到的参数为：" + JSONObject.fromObject(param));
         IdcardValidator iv = new IdcardValidator();
-        User user = new User();
+        User user;
         //查询绑定信息
         if (ValidateUtils.isMobile(param.getPhone().replace(" ", ""))) {
             //因数据库中限制，查询 到的数据不可能为null
@@ -423,11 +423,11 @@ public class UserBankCarController {
         } else {
             return ResponseMessage.verificationPhoneFailed();
         }
-        if (!"".equals(user.getIdCard()) || user.getIdCard() != null) {
+        if (!"".equals(user.getIdCard()) && user.getIdCard() != null) {
             return ResponseMessage.verificationUserNameFailed01(user);
         }
         //判断验证次数是否超3次
-		/*if (user.getCertificationNumber() >= ConstantParam.PARAM_AUTHENTIATION_FAILD) {
+		if (user.getCertificationNumber() >= ConstantParam.PARAM_AUTHENTIATION_FAILD) {
 			//验证次数超三次，提示24小时之后再来验证
 			if (user.getCertificationTime() <= ConstantParam.ROUND_THE_CLOCK_UNIX) {
 				User user1 = new User();
@@ -436,8 +436,7 @@ public class UserBankCarController {
 				userDao.updateUser(user1);
 			}
 			return ResponseMessage.verificationPhoneFailed1(user.getCertificationTime());
-		}*/
-        // 判断token是否有效
+		}
         // 判断身份证号是否符合规范
         if (iv.isValidatedAllIdcard(param.getIdCard())) {
             // 判断姓名
@@ -479,7 +478,7 @@ public class UserBankCarController {
     /**
      * @param @param  param
      * @param @return 设定文件
-     * @return Map<String   ,   Object>    返回类型
+     * @return Map<String, Object>    返回类型
      * @throws
      * @Title: bindingBankCard
      * @Description: TODO(绑定银行卡)
@@ -492,9 +491,9 @@ public class UserBankCarController {
         User userToken = new User();
         userToken.setPhone(param.getPhone());
         userToken.setStrUUID(param.getToken());
-		if (!tokenUUID(userToken)) {
-			return ResponseMessage.verificationToken();
-		}
+        if (!tokenUUID(userToken)) {
+            return ResponseMessage.verificationToken();
+        }
         IdcardValidator iv = new IdcardValidator();
         User paramUser = new User();
         BankCard bankCard = new BankCard();
@@ -566,7 +565,7 @@ public class UserBankCarController {
     /**
      * @param @param  param
      * @param @return 设定文件
-     * @return Map<String   ,   Object>    返回类型
+     * @return Map<String, Object>    返回类型
      * @throws
      * @Title: rPaymentPassWord
      * @Description: TODO(修改 ， 设置支付密码)
@@ -674,7 +673,7 @@ public class UserBankCarController {
     /**
      * @param @param  param
      * @param @return 设定文件
-     * @return Map<String   ,   Object>    返回类型
+     * @return Map<String, Object>    返回类型
      * @throws
      * @Title: recharge
      * @Description: TODO(充值)
@@ -701,11 +700,12 @@ public class UserBankCarController {
             ResponseMessage.rechargeFailedOne5();
         }
         //需要账号，且完成实名认证，需要填写银行卡号，验证支付密码
-        Map<String, Object> jsonMap = new HashMap<>();
+        Map<String, Object> jsonMap;
         BankCard bankCard = new BankCard();
         bankCard.setBankCardNumber(param.getBankCardNumber());
+        bankCard.setPhone(param.getPhone());
         Integer response = bankCardDao.selectByBankCardVerification(bankCard);
-        User userParam = new User();
+        User userParam;
         if (param.getPhone() != null) {
             // 判断账号是否正确
             userParam = userDao.selectByUser(param.getPhone());
@@ -765,7 +765,7 @@ public class UserBankCarController {
     /**
      * @param @param  param
      * @param @return 设定文件
-     * @return Map<String   ,   Object>    返回类型
+     * @return Map<String, Object>    返回类型
      * @throws
      * @Title: recharge
      * @Description: TODO(提现)
@@ -774,7 +774,7 @@ public class UserBankCarController {
     @RequestMapping(value = "/consumption", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> consumption(@RequestBody UserBankCard param) {
-        Map<String, Object> jsonMap = new HashMap<>();
+        Map<String, Object> jsonMap;
         log.info("接收到的参数为：" + JSONObject.fromObject(param));
         //验证token
         //检查登录状态
@@ -829,7 +829,7 @@ public class UserBankCarController {
     /**
      * @param @param  param
      * @param @return 设定文件
-     * @return Map<String   ,   Object>    返回类型
+     * @return Map<String, Object>    返回类型
      * @throws
      * @Title: untiedBankCard
      * @Description: TODO(解绑银行卡)
@@ -889,7 +889,7 @@ public class UserBankCarController {
     /**
      * @param @param  param
      * @param @return 设定文件
-     * @return Map<String   ,   Object>    返回类型
+     * @return Map<String, Object>    返回类型
      * @throws
      * @Title: Logout
      * @Description: TODO(注销账号)
@@ -933,7 +933,7 @@ public class UserBankCarController {
     /**
      * @param @param  param
      * @param @return 设定文件
-     * @return Map<String   ,   Object>    返回类型
+     * @return Map<String, Object>    返回类型
      * @throws
      * @Title: queryBankCard
      * @Description: TODO(查询绑定的银行卡)
@@ -961,7 +961,7 @@ public class UserBankCarController {
     /**
      * @param @param  param
      * @param @return 设定文件
-     * @return Map<String   ,   Object>    返回类型
+     * @return Map<String, Object>    返回类型
      * @throws
      * @Title: changePassword
      * @Description: TODO(修改密码)
@@ -1036,7 +1036,7 @@ public class UserBankCarController {
     /**
      * @param @param  param
      * @param @return 设定文件
-     * @return Map<String   ,   Object>    返回类型
+     * @return Map<String, Object>    返回类型
      * @throws
      * @Title: modifyTheBoundPhone
      * @Description: TODO(修改绑定手机号)
@@ -1052,7 +1052,7 @@ public class UserBankCarController {
 
     /**
      * @param @return 设定文件
-     * @return Map<String   ,   Object>    返回类型
+     * @return Map<String, Object>    返回类型
      * @throws
      * @Title: projectRelease
      * @Description: TODO(查询项目信息)
@@ -1086,7 +1086,7 @@ public class UserBankCarController {
     /**
      * @param @param  project
      * @param @return 设定文件
-     * @return Map<String   ,   Object>    返回类型
+     * @return Map<String, Object>    返回类型
      * @throws
      * @Title: projectRelease
      * @Description: TODO(根据ID查询)
@@ -1129,7 +1129,7 @@ public class UserBankCarController {
     /**
      * @param @param  project
      * @param @return 设定文件
-     * @return Map<String   ,   Object>    返回类型
+     * @return Map<String, Object>    返回类型
      * @throws
      * @Title: projectRelease
      * @Description: TODO(项目投资)
@@ -1255,7 +1255,7 @@ public class UserBankCarController {
     /**
      * @param @param  project
      * @param @return 设定文件
-     * @return Map<String   ,   Object>    返回类型
+     * @return Map<String, Object>    返回类型
      * @throws
      * @Title: queryProject
      * @Description: TODO(项目录入)
@@ -1289,7 +1289,7 @@ public class UserBankCarController {
     /**
      * @param @param  investmentProject
      * @param @return 设定文件
-     * @return Map<String   ,   Object>    返回类型
+     * @return Map<String, Object>    返回类型
      * @throws
      * @Title: claimTransfer
      * @Description: TODO(债权转让信息计算)
@@ -1369,7 +1369,7 @@ public class UserBankCarController {
     /**
      * @param @param  investmentProject
      * @param @return 设定文件
-     * @return Map<String   ,   Object>    返回类型
+     * @return Map<String, Object>    返回类型
      * @throws
      * @Title: claimTransfer
      * @Description: TODO(进行债券转让)
@@ -1416,12 +1416,12 @@ public class UserBankCarController {
 
 
     /**
-     * @Title: projectPayment
-     * @Description: TODO(这里用一句话描述这个方法的作用)
      * @param @param
-     * @return @return 
-     * @author sunbo@pgytesting.cn
+     * @return @return
      * @throws
+     * @Title: projectPayment
+     * @Description: TODO(自动核查回款项目)
+     * @author sunbo@pgytesting.cn
      * @date 2019/4/22 17:51
      */
     //@Scheduled(cron = "0 0 0 * * ?")//每天凌晨0点执行一次
@@ -1488,11 +1488,10 @@ public class UserBankCarController {
      * @Description: TODO(判断token是否有效 ， 进行存库 ， 比对 ， 更新)
      */
     public boolean tokenUUID(User param) {//uuidMd5Encryption
-        User user = new User();
         User user1 = new User();
         //验证手机号码是否为空
         if (param.getPhone() != null && ValidateUtils.isMobile(param.getPhone())) {
-            user = userDao.selectByUserUUID(param);
+            User user = userDao.selectByUserUUID(param);
             //验证UUID是否一致
             if (param.getStrUUID().equals(user.getStrUUID())) {
                 log.info("token验证一致，加密后的token为：" + param.getStrUUID());
@@ -1553,7 +1552,7 @@ public class UserBankCarController {
     /**
      * @param @param  param
      * @param @return 设定文件
-     * @return Map<String   ,   Object>    返回类型
+     * @return Map<String, Object>    返回类型
      * @throws
      * @Title: recharge1
      * @Description: TODO(内部调用充值接口)

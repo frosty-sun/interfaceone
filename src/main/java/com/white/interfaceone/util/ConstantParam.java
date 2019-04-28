@@ -60,7 +60,7 @@ public interface ConstantParam {
 	//认证失败，认证次数
 	public static final int PARAM_AUTHENTIATION_FAILD = 3;
 	//参数 认证状态
-	public static final String PARAM_CERTIFICATION_STATUS = "certificationStatus";
+	public static final String PARAM_CERTIFICATION_STATUS = "certificationCode";
 	// 参数 英文
 	public static final String PARAM_CHINESE = "EN";
 	// 参数 中文

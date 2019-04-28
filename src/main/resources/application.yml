@@ -1,44 +1,36 @@
-# ÉèÖÃtomcat¶Ë¿ÚºÅÒÔ¼°Ä¬ÈÏ·ÃÎÊÂ·¾¶
+# è®¾ç½®tomcatç«¯å£å·ä»¥åŠé»˜è®¤è®¿é—®è·¯å¾„
 server:
   port: 8080
   servlet:
     context-path: /p2p/
-  tomcat:
-    uri-encoding: utf-8  # ÉèÖÃÅäÖÃÎÄ¼ş±àÂëÎªUTF-8
 
 
 spring:
   mvc:
-    view: # ÅäÖÃÄ¬ÈÏ·ÃÎÊµÄÇ°¶ËÒ³ÃæÎ»ÖÃ
+    view: # é…ç½®é»˜è®¤è®¿é—®çš„å‰ç«¯é¡µé¢ä½ç½®
       prefix: /static
       suffix: .html
-  datasource:  # JDBCÁ¬½ÓMysql6 com.mysql.cj.jdbc.Driver£¬ ĞèÒªÖ¸¶¨Ê±ÇøserverTimezone:Èç¹ûÉè¶¨serverTimezone=UTC£¬»á±ÈÖĞ¹úÊ±¼äÔç8¸öĞ¡Ê±£¬Èç¹ûÔÚÖĞ¹ú£¬¿ÉÒÔÑ¡ÔñAsia/Shanghai»òÕßAsia/Hongkong
-    url: jdbc:mysql://192.168.3.210:3306/interface_one?serverTimezone=Hongkong&useUnicode=true&characterEncoding=utf8&useSSL=false
+  datasource:  # JDBCè¿æ¥Mysql6 com.mysql.cj.jdbc.Driverï¼Œ éœ€è¦æŒ‡å®šæ—¶åŒºserverTimezone:å¦‚æœè®¾å®šserverTimezone=UTCï¼Œä¼šæ¯”ä¸­å›½æ—¶é—´æ—©8ä¸ªå°æ—¶ï¼Œå¦‚æœåœ¨ä¸­å›½ï¼Œå¯ä»¥é€‰æ‹©Asia/Shanghaiæˆ–è€…Asia/Hongkong
+    url: jdbc:mysql://192.168.3.180:3306/interface_one?serverTimezone=Hongkong&useUnicode=true&characterEncoding=utf8&useSSL=false
     username: root
-    password: root@123
+    password: Pgy123123
     driver-class-name: com.mysql.cj.jdbc.Driver
     tomcat:
-      max-age: 1800 # ÅäÖÃÊı¾İ¿âÁ´½Ó³Ø³¬Ê±Ê±¼ä
+      max-age: 1800 # é…ç½®æ•°æ®åº“é“¾æ¥æ± è¶…æ—¶æ—¶é—´
   jpa:
     hibernate:
-      ddl-auto: update # Á´½ÓÊı¾İ¿â±Ø±¸²ÎÊı
-  http:  # ÉèÖÃÅäÖÃÎÄ¼ş±àÂëÎªUTF-8
-    encoding:
-      charset: UTF-8
-      enabled: true
-      force: true
-  messages:
-    encoding: UTF-8
+      ddl-auto: update # é“¾æ¥æ•°æ®åº“å¿…å¤‡å‚æ•°
 
 
-# ¸ÃÅäÖÃ½ÚµãÎª¶ÀÁ¢µÄ½Úµã£¬ÓĞºÜ¶àÍ¬Ñ§ÈİÒ×½«Õâ¸öÅäÖÃ·ÅÔÚspringµÄ½ÚµãÏÂ£¬µ¼ÖÂÅäÖÃÎŞ·¨±»Ê¶±ğ
+
+# è¯¥é…ç½®èŠ‚ç‚¹ä¸ºç‹¬ç«‹çš„èŠ‚ç‚¹ï¼Œæœ‰å¾ˆå¤šåŒå­¦å®¹æ˜“å°†è¿™ä¸ªé…ç½®æ”¾åœ¨springçš„èŠ‚ç‚¹ä¸‹ï¼Œå¯¼è‡´é…ç½®æ— æ³•è¢«è¯†åˆ«
 mybatis:
-  mapper-locations: classpath:mapper/*.xml  #×¢Òâ£ºÒ»¶¨Òª¶ÔÓ¦mapperÓ³ÉäxmlÎÄ¼şµÄËùÔÚÂ·¾¶
-  type-aliases-package: com.white.interfaceone.entity  # ×¢Òâ£º¶ÔÓ¦ÊµÌåÀàµÄÂ·¾¶
+  mapper-locations: classpath:mapper/*.xml  #æ³¨æ„ï¼šä¸€å®šè¦å¯¹åº”mapperæ˜ å°„xmlæ–‡ä»¶çš„æ‰€åœ¨è·¯å¾„
+  type-aliases-package: com.white.interfaceone.entity  # æ³¨æ„ï¼šå¯¹åº”å®ä½“ç±»çš„è·¯å¾„
   configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  # ´Ë´¦Ôö¼ÓÈÕÖ¾ÖĞSQL´òÓ¡
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  # æ­¤å¤„å¢åŠ æ—¥å¿—ä¸­SQLæ‰“å°
 
-#pagehelper·ÖÒ³²å¼ş
+#pagehelperåˆ†é¡µæ’ä»¶
 pagehelper:
   helperDialect: mysql
   reasonable: true
@@ -47,11 +39,11 @@ pagehelper:
 
 
 
-# ÈÕÖ¾ÅäÖÃ
+# æ—¥å¿—é…ç½®
 logging:
   file: ../logs/p2p.log
   level:
-    #    com.example.informationEntry.dao: debug  # ¶ÔÈÕÖ¾½øĞĞdebugÒ²¿ÉÒÔ´òÓ¡SQLÈÕÖ¾
+    #    com.example.informationEntry.dao: debug  # å¯¹æ—¥å¿—è¿›è¡Œdebugä¹Ÿå¯ä»¥æ‰“å°SQLæ—¥å¿—
     root: info
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger- %msg%n"

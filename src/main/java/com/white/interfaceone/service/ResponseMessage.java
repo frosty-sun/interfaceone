@@ -334,7 +334,7 @@ public class ResponseMessage {
 		responseParam1.put(ConstantParam.PARAM_WATING_TIME, UtilMethod.getUnixToTime(certificationTime).get(ConstantParam.PARAM_ENGLISH));
 		responseParam.put(ConstantParam.PARAM_DATA, responseParam1);
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
-		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "绑定次数太频繁，请等待 " + UtilMethod.getUnixToTime(certificationTime).get(ConstantParam.PARAM_CHINESE) + " 再试！");
+		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "绑定次数太频繁，请等待 " + UtilMethod.getUnixToTime(certificationTime).get(ConstantParam.PARAM_ENGLISH) + " 再试！");
 		log.info("=======绑定次数太频繁，请等待：" + UtilMethod.getUnixToTime(certificationTime).get(ConstantParam.PARAM_ENGLISH) + "再试！==========");
 		return responseParam;
 	}
@@ -731,7 +731,7 @@ public class ResponseMessage {
 	public static Map<String, Object> rechargeFailedThree(){
 		Map<String , Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_PHONE_ERROR_CODE);
-		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "充值失败，请先绑定银行卡！");
+		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "充值失败，请先绑定此银行卡！");
 		log.info("=======充值失败，请先绑定银行卡！==========");
 		return responseParam;
 	}
@@ -1014,7 +1014,7 @@ public class ResponseMessage {
 	public static Map<String, Object> projectEntry3(){
 		Map<String, Object> responseParam = new LinkedHashMap<>();
 		responseParam.put(ConstantParam.STATUS_CODE, ConstantParam.MESSAGE_SESSION_CODE);
-		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "债权转让成功，利息已同步提取到余额");
+		responseParam.put(ConstantParam.RESPONSE_MASSAGE, "债权转让成功，利息已同步提取到余额,");
 		log.info("=======债权转让成功，利息已同步提取到余额。==========");
 		return responseParam;
 	}
