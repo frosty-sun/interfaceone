@@ -259,7 +259,7 @@ public class UtilMethod {
 		map.put(ConstantParam.PARAM_CHINESE, String.valueOf(time2.append(unix % 60 + " seconds")));
 		return map;
 	}
-	
+
 	
 	/**
      * 利用正则表达式判断字符串是否是数字

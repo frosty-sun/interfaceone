@@ -59,7 +59,6 @@ public class UserBankCarController {
         return paraMap;
     }
 
-
     /**
      * @param @return 设定文件
      * @return Map<String, String>    返回类型
@@ -70,7 +69,7 @@ public class UserBankCarController {
     @RequestMapping(value = "/longin", method = RequestMethod.POST)
     public Map<String, Object> insertUser(@RequestBody User param) {
         log.info("接收到的参数为：" + JSONObject.fromObject(param));
-        User user = new User();
+        User user;
         //进行密码账号输入为空判断
         if (param.getPhone() != null && param.getPhone().length() != 0
                 && param.getPassWd() != null && param.getPassWd().length() != 0) {
@@ -1544,7 +1543,7 @@ public class UserBankCarController {
             rw.setPhone(param.getPhone());
             // 充值金额
             rw.setAmountOfTheTransaction(
-                    "+" + (String.valueOf(param.getNumber())));
+                    "+" + (param.getNumber()));
             // 流水号
             String a = PropertyUtil.getPro(ConstantParam.PARAM_SEQUENCECONFIG_PROPERTIES, ConstantParam.PARAM_SEQUENCE);
             Integer ite = Integer.parseInt(a);
