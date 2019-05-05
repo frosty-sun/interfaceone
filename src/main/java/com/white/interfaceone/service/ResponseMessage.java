@@ -27,7 +27,129 @@ public class ResponseMessage {
 	
 	
 	private static Logger log= LoggerFactory.getLogger(ResponseMessage.class);
-	
+
+
+	/**
+	 * @param @param  paraMap
+	 * @param @return 设定文件
+	 * @return Map<String   ,   Object>    返回类型
+	 * @throws
+	 * @Title: isSuccess
+	 * @Description: TODO(成功)
+	 */
+	public static Map<String, Object> isSuccess(Object paraMap,String message) {
+		LinkedHashMap<String, Object> linkMap = new LinkedHashMap<>();
+		linkMap.put("statusCode", "2000");
+		linkMap.put("message", message);
+		linkMap.put("status", true);
+		linkMap.put("data", paraMap);
+		log.info("请求成功");
+		return linkMap;
+	}
+
+	/**
+	 * @param @return 设定文件
+	 * @return Map<String   ,   Object>    返回类型
+	 * @throws
+	 * @Title: isSuccess
+	 * @Description: TODO(成功)
+	 */
+	public static Map<String, Object> isSuccess(String message) {
+		LinkedHashMap<String, Object> linkMap = new LinkedHashMap<>();
+		linkMap.put("statusCode", "2000");
+		linkMap.put("message", message);
+		linkMap.put("status", true);
+		log.info("请求成功");
+		return linkMap;
+	}
+
+	/**
+	 * @param @param  paraMap
+	 * @param @return 设定文件
+	 * @return Map<String   ,   Object>    返回类型
+	 * @throws
+	 * @Title: isError
+	 * @Description: TODO(错误)
+	 */
+	public static Map<String, Object> isError(Object paraMap,String message) {
+		LinkedHashMap<String, Object> linkMap = new LinkedHashMap<>();
+		linkMap.put("statusCode", "3000");
+		linkMap.put("message", message);
+		linkMap.put("status", true);
+		linkMap.put("data", paraMap);
+		log.info("请求出现异常");
+		return linkMap;
+	}
+
+	/**
+	 * @param @return 设定文件
+	 * @return Map<String   ,   Object>    返回类型
+	 * @throws
+	 * @Title: isError
+	 * @Description: TODO(错误)
+	 */
+	public static Map<String, Object> isError(String message) {
+		LinkedHashMap<String, Object> linkMap = new LinkedHashMap<>();
+		linkMap.put("statusCode", "3000");
+		linkMap.put("message", message);
+		linkMap.put("status", false);
+		log.info("请求出现异常");
+		return linkMap;
+	}
+	/**
+	 * @param @return 设定文件
+	 * @return Map<String   ,   Object>    返回类型
+	 * @throws
+	 * @Title: isError
+	 * @Description: TODO(错误)
+	 */
+	public static Map<String, Object> isCookieError() {
+		LinkedHashMap<String, Object> linkMap = new LinkedHashMap<>();
+		linkMap.put("statusCode", "3001");
+		linkMap.put("message", "token失效，请重新登陆");
+		linkMap.put("status", false);
+		log.info("token失效，请重新登陆！");
+		return linkMap;
+	}
+
+	/**
+	 * @Title: isException
+	 * @Description: TODO(异常报错，返回参数)
+	 * @param @param
+	 * @return @return
+	 * @author sunbo@pgytesting.cn
+	 * @throws
+	 * @date 2019/4/4 17:18
+	 */
+	public static Map<String, Object> isException(String message) {
+		LinkedHashMap<String, Object> linkMap = new LinkedHashMap<>();
+		linkMap.put("statusCode", "5000");
+		linkMap.put("message", message);
+		linkMap.put("status", false);
+		log.info("请求出现异常");
+		return linkMap;
+	}
+	/**
+	 * @Title: isException
+	 * @Description: TODO(数据库异常报错，返回参数)
+	 * @param @param
+	 * @return @return
+	 * @author sunbo@pgytesting.cn
+	 * @throws
+	 * @date 2019/4/4 17:18
+	 */
+	public static Map<String, Object> isSQLException() {
+		LinkedHashMap<String, Object> linkMap = new LinkedHashMap<>();
+		linkMap.put("statusCode", "5001");
+		linkMap.put("message", "数据库请求异常");
+		linkMap.put("status", false);
+		log.info("数据库请求异常");
+		return linkMap;
+	}
+
+
+
+
 	/**
 	 * 
 	* @Title: registrationSuccess 

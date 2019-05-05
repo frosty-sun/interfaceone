@@ -51,8 +51,8 @@ public class UserBankCarController {
     public Map<String, Object> responseIndex(@RequestBody Map<String, Object> paraMap) {
         String pwd = UtilMethod.md5Encryption(String.valueOf(paraMap.get("pwd")));
         log.info("\n****************************************************************************************\n" +
-                 "*                   调用加密测试接口，此接口仅供测试调取明文加密操作                            *\n" +
-                 "****************************************************************************************");
+                "*                   调用加密测试接口，此接口仅供测试调取明文加密操作                            *\n" +
+                "****************************************************************************************");
         log.info("明文：" + paraMap.get("pwd") + "加密加盐后为：" + pwd);
         paraMap.put("statusCode", "2000");
         paraMap.put("pwd", pwd);
@@ -396,16 +396,16 @@ public class UserBankCarController {
             return ResponseMessage.verificationUserNameFailed01(user);
         }
         //判断验证次数是否超3次
-		if (user.getCertificationNumber() >= ConstantParam.PARAM_AUTHENTIATION_FAILD) {
-			//验证次数超三次，提示24小时之后再来验证
-			if (user.getCertificationTime() <= ConstantParam.ROUND_THE_CLOCK_UNIX) {
-				User user1 = new User();
-				user1.setPhone(param.getPhone());
-				user1.setCertificationNumber(ConstantParam.PARAM_CODE_NOT_CERTIFID);
-				userDao.updateUser(user1);
-			}
-			return ResponseMessage.verificationPhoneFailed1(user.getCertificationTime());
-		}
+        if (user.getCertificationNumber() >= ConstantParam.PARAM_AUTHENTIATION_FAILD) {
+            //验证次数超三次，提示24小时之后再来验证
+            if (user.getCertificationTime() <= ConstantParam.ROUND_THE_CLOCK_UNIX) {
+                User user1 = new User();
+                user1.setPhone(param.getPhone());
+                user1.setCertificationNumber(ConstantParam.PARAM_CODE_NOT_CERTIFID);
+                userDao.updateUser(user1);
+            }
+            return ResponseMessage.verificationPhoneFailed1(user.getCertificationTime());
+        }
         // 判断身份证号是否符合规范
         if (iv.isValidatedAllIdcard(param.getIdCard())) {
             // 判断姓名
@@ -1344,12 +1344,11 @@ public class UserBankCarController {
      * @Description: TODO(进行债券转让)
      */
     @RequestMapping(value = "/transfer", method = RequestMethod.POST)
-    @ResponseBody
     public Map<String, Object> claimTransfer(@RequestBody Map<String, String> paraMap) {
         log.info("接收到的参数为：" + paraMap.toString());
         InvestmentProject investmentProject = new InvestmentProject();
         BankCardRecharge bcr = new BankCardRecharge();
-        InvestmentProject iPro = new InvestmentProject();
+        InvestmentProject iPro;
         Project pro = new Project();
         investmentProject.setInvestmentId(paraMap.get(ConstantParam.PARAM_INVESTMENT_ID));
         iPro = investmentProjectDao.selectInvestmentId(investmentProject);
@@ -1394,24 +1393,26 @@ public class UserBankCarController {
      * @date 2019/4/22 17:51
      */
     //@Scheduled(cron = "0 0 0 * * ?")//每天凌晨0点执行一次
-    @Scheduled(cron = "0 */3 * * * ?")//每十分钟执行一次，为了测试方便
-    public void projectPayment() {
+//    @Scheduled(cron = "0 */3 * * * ?")//每十分钟执行一次，为了测试方便
+    @RequestMapping(value = "/Payback", method = RequestMethod.GET)
+    public Map projectPayment() {
         log.info("回款检查方法调用启动...");
         //查询状态为回款，剩余额度为0的项目进行回款条件过滤
-        List<Project> list = new ArrayList<>();
+        List<Project> list;
         List<Project> listEnd = new ArrayList<>();
         list = projectDao.selectPaybackAll();
         Long currentTime = UtilMethod.unixString();
         if (list.size() == ConstantParam.PARAM_CODE_NOT_CERTIFID) {
             log.info("所有项目均未开始回款，等待下次调用检查...");
+            return ResponseMessage.isSuccess("所有项目均未开始回款");
         }
         for (Project project : list) {
-            log.info("判断数据是否满足回款条件：" + String.valueOf(project));
+            log.info("判断数据是否满足回款条件：" + project);
             if (currentTime >= (project.getReleaseTime() +
                     (project.getProjectDeadline() * ConstantParam.ROUND_THE_CLOCK_UNIX))) {
                 log.info("数据满足回款条件，进行全局投资查询，回款计算开始...");
                 InvestmentProject iPro = new InvestmentProject();
-                List<InvestmentProject> iProList = new ArrayList<>();
+                List<InvestmentProject> iProList;
                 //查询到该项目的所有投资
                 iPro.setInvestmentProjectId(project.getProjectId());
                 iProList = investmentProjectDao.selectProjectId(iPro);
@@ -1445,6 +1446,7 @@ public class UserBankCarController {
                 log.info("项目：" + project.getProjectName() + ",项目ID为：" + project.getProjectId() + "  回款结束！");
             }
         }
+        return ResponseMessage.isSuccess("所有项目已回款成功，详细请调阅日志");
     }
 
 
